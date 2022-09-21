@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "import:data": "nodemon seeder.js",
+    "destroy:data": "nodemon seeder.js -d"
   },
   "repository": {
     "type": "git",
