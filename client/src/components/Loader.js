@@ -1,8 +1,9 @@
 import React from "react";
+import HashLoader from "react-spinners/HashLoader";
 export default function Loader(){
     return (
-        <div className="spinner-border text-danger" role="status" style={{height:"80px",width:"80px"}}>
-            <span className="sr-only"></span>
-        </div>
+        <div className="sweet-loading" style={{display:'flex',alignItems:"center",justifyContent:"center"}}>
+      <HashLoader color={'#000'} loading={true} css='' size={80} />
+    </div>
     )
 }
