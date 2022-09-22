@@ -1,10 +1,13 @@
 const express=require("express");
-const {ConnectDB}=require("./config/db");
 const app=express()
-ConnectDB();
+const cors=require("cors")
+const {ConnectDB}=require("./config/db");
+const RoomsRouter=require("./Routes/Rooms")
 
-app.use(express.json)
-const port=process.env.PORT||5000
-app.listen(port,()=>{
-    console.log("the server is running")
+app.use(cors());
+app.use(express.json());
+app.listen(5000,()=>{
+    ConnectDB();
+    console.log("the server is on")
 })
+app.use("/api/rooms",RoomsRouter)

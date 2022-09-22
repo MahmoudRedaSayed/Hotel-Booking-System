@@ -8,6 +8,8 @@ export const getAllRoomsAction=()=>async(dispatch,getState)=>{
     try{
         dispatch({type:GET_ALL_ROOMS_REQUEST})
         const response=await axios.get("http://localhost:5000/api/rooms");
+        console.log(response)
+        console.log("here")
         dispatch({type:GET_ALL_ROOMS_SUCCESS,payload:response.data})
     }
     catch(error)
