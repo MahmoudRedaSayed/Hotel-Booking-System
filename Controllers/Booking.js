@@ -59,9 +59,38 @@ const bookRoom= async (req, res) => {
     }
     }
     catch (error) {
-        console.log(error);
         res.status(400).json({ message: "Something went wrong" + error });
       }
     };
-
-module.exports={bookRoom}
+    const getUserBookings=async(req,res)=>{
+      try{
+          const {id}=req.params;
+          console.log("id",id)
+          const bookings=await Booking.find({userid:id});
+          res.status(200).json(bookings);
+      }
+      catch(error)
+      {
+        res.status(400).json({ message: "Something went wrong" + error });  
+      }
+    }
+const cancelBooking=async(req,res)=>{
+      try{
+        const {bookingId,roomId } = req.body;
+        const bookingitem = await Booking.findOne({_id: bookingId}) 
+        bookingitem.status='cancelled'
+        await bookingitem.save();
+        const room = await Room.findOne({_id:roomId})
+        const bookings = room.currentbookings
+        const temp=bookings.filter(booking=>booking.bookingid.toString()!==bookingId)
+        console.log(temp);
+        room.currentbookings=temp;
+        await room.save()
+        res.status(200).json('Booking deleted successfully')
+      }
+    catch(error)
+    {
+      res.status(400).json({ message: "Something went wrong" + error });  
+    }
+}
+module.exports={bookRoom,getUserBookings,cancelBooking}
