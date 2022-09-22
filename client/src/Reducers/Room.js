@@ -2,6 +2,9 @@ import {
     GET_ALL_ROOMS_REQUEST,
     GET_ALL_ROOMS_SUCCESS,
     GET_ALL_ROOMS_FAIL,
+    FILTER_ROOMS_REQUEST,
+    FILTER_ROOMS_SUCCESS,
+    FILTER_ROOMS_FAIL,
     GET_ROOM_BY_ID_REQUEST,
     GET_ROOM_BY_ID_SUCCESS,
     GET_ROOM_BY_ID_FAIL
@@ -29,6 +32,7 @@ export const  getAllRoomsReducer=(state={},action)=>{
     }
 
 }
+
 
 export const  getRoomByIdReducer=(state={},action)=>{
     switch(action.type)

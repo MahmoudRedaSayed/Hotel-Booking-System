@@ -27,4 +27,32 @@ const getRoomById=async (req,res)=>{
         res.status(400).json("error in server");
     }
 }
-module.exports={getAllRooms,getRoomById}
+const getFilteredRooms=async(req,res)=>{
+    try{
+        const {searchKey,type}=req.body;
+        console.log(req.body)
+        var rooms;
+        if(type&&type!=="all")
+        {
+            rooms=await Room.find({type:type});
+        }
+        else{
+            rooms=await Room.find({});
+        }
+        if(searchKey)
+        {
+            const filteredRooms = rooms.filter(room=>room.name.toLowerCase().includes(searchKey.toLowerCase()))
+            res.status(200).json(filteredRooms);
+        }
+        else
+        {
+
+            res.status(200).json(rooms);
+        }
+    }
+    catch(error)
+    {
+        res.status(400).json("error in server");
+    }
+}
+module.exports={getAllRooms,getRoomById,getFilteredRooms}

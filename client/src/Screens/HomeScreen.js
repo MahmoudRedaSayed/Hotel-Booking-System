@@ -1,6 +1,6 @@
 import React, { useEffect , useState} from "react"
 import {useDispatch,useSelector} from "react-redux"
-import { getAllRoomsAction } from "../Actions/Room";
+import { FilterRoomsAction, getAllRoomsAction } from "../Actions/Room";
 import Room from "../components/Room";
 import Loader from "../components/Loader";
 import Error from "../components/Error"
@@ -14,6 +14,8 @@ export default function HomeScreen() {
     const [duplicatehotes, setduplicatehotes] = useState([]); 
     const [filterDate,setFilterDate]=useState(false);
     const [hotels,setHotels]=useState([]);
+    const [searchKey,setSearchKey]=useState();
+    const [type,setType]=useState();
     const {rooms,error,loading,success}=useSelector(state=>state.getAllRooms);
     const dispatch=useDispatch();
     useEffect(()=>{
@@ -66,13 +68,39 @@ export default function HomeScreen() {
         
     }
 
-    return loading?<Loader></Loader>:error?<Error data="something go wrong"></Error>:success?
+  
+
+    return error?<Error data="something go wrong"></Error>:
     <div className="container">
+      <div style={{display:'flex',justifyContent:"center" ,alignItems:"center",flexDirection:"column"}}>
+      <div style={{display:'flex',justifyContent:"center" ,alignItems:"center",gap:"30px"}}>
         <div className="col-md-4">
             <RangePicker style={{ height: "38px" }} onChange={filterByDate} format='DD-MM-YYYY' className='m-2'/>
           </div>
+          <div className="col-md-4" >
+            <input
+              type="text"
+              className="form-control i2 m-2"
+              placeholder='Search Rooms'
+              onChange={(e)=>{setSearchKey(e.target.value)}}
+            />
+          </div>
+          <div className="col-md-4">
+            <select className="form-control m-2"  onChange={(e)=>{setType(e.target.value)}} >
 
-            <div  className="row justify-content-center"> 
+            <option value="all">All</option>
+              <option value="Delux">Delux</option>
+              <option value="Non-Delux">Non Delux</option>
+              
+            </select>
+          </div>
+          
+          </div>
+          <div>
+            <button className="btn"  style={{color:"white",padding:"10px",margin:"10px"}} onClick={()=>{dispatch(FilterRoomsAction(searchKey,type)); }}>Filter</button>
+          </div>
+      </div>
+          {loading?<Loader></Loader>:success?(<div  className="row justify-content-center"> 
                 {!filterDate&&success&&(rooms.map(room=>(
                     <div key={room._id} className="col-md-9">
                     {console.log("rooms")}
@@ -84,5 +112,6 @@ export default function HomeScreen() {
                 <Room room={room} fromdate={fromdate} todate={todate}></Room>
                 </div>)))}
             </div>
-        </div>:""
+        ):error?<Error data="something go wrong"></Error>:""}
+      </div>
 }

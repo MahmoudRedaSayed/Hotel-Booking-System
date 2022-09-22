@@ -14,7 +14,6 @@ export default function Loginscreen() {
     const {loading,error,user}=useSelector(state=>state.loginUser);
 
     useEffect(() => {
-
           if(localStorage.getItem('userInfo'))
           {
               window.location.href='/'
