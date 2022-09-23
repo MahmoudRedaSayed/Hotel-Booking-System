@@ -7,7 +7,11 @@ import Error from "../components/Error"
 import moment from "moment";
 import "antd/dist/antd.css"
 import { DatePicker, Space } from "antd";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 const { RangePicker } = DatePicker;
+
+AOS.init();
 export default function HomeScreen() {
     const [fromdate, setfromdate] = useState('');
     const [todate, settodate] = useState(''); 
@@ -72,8 +76,8 @@ export default function HomeScreen() {
 
     return error?<Error data="something go wrong"></Error>:
     <div className="container">
-      <div style={{display:'flex',justifyContent:"center" ,alignItems:"center",flexDirection:"column"}}>
-      <div style={{display:'flex',justifyContent:"center" ,alignItems:"center",gap:"30px"}}>
+      <div className="bs rounded" style={{display:'flex',justifyContent:"center" ,alignItems:"center",marginTop:"20px",flexDirection:"column"}}>
+      <div  style={{display:'flex',justifyContent:"center" ,alignItems:"center",gap:"15px"}}>
         <div className="col-md-4">
             <RangePicker style={{ height: "38px" }} onChange={filterByDate} format='DD-MM-YYYY' className='m-2'/>
           </div>
@@ -102,12 +106,12 @@ export default function HomeScreen() {
       </div>
           {loading?<Loader></Loader>:success?(<div  className="row justify-content-center"> 
                 {!filterDate&&success&&(rooms.map(room=>(
-                    <div key={room._id} className="col-md-9">
+                    <div key={room._id} data-aos='zoom-in' className="col-md-9">
                     {console.log("rooms")}
                 <Room room={room} fromdate={fromdate} todate={todate}></Room>
                 </div>)))}
                 {filterDate&&(hotels.map(room=>(
-                <div key={room._id} className="col-md-9">
+                <div key={room._id} data-aos='zoom-in' className="col-md-9">
                     {console.log("hotels")}
                 <Room room={room} fromdate={fromdate} todate={todate}></Room>
                 </div>)))}

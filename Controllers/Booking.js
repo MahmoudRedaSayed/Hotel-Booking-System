@@ -93,4 +93,15 @@ const cancelBooking=async(req,res)=>{
       res.status(400).json({ message: "Something went wrong" + error });  
     }
 }
-module.exports={bookRoom,getUserBookings,cancelBooking}
+const getAllBookings=async(req,res)=>{
+  try{
+      const bookings=await Booking.find({});
+      console.log(bookings)
+      res.status(200).json(bookings);
+  }
+  catch(error)
+  {
+    res.status(400).json({ message: "Something went wrong" + error });  
+  }
+}
+module.exports={bookRoom,getUserBookings,cancelBooking,getAllBookings}

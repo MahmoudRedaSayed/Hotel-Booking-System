@@ -5,9 +5,14 @@ import { REGISTER_USER_FAIL,
         LOGIN_USER_REQUEST,
         LOGIN_USER_SUCCESS,
         LOGIN_USER_FAIL,
+        GET_ALL_USERS_REQUEST,
+        GET_ALL_USERS_SUCCESS,
+        GET_ALL_USERS_FAIL,
         LOGOUT_USER_FAIL,
         LOGOUT_USER_REQUEST,
         LOGOUT_USER_SUCCESS} from "../Constants/User";
+import Swal from 'sweetalert2'
+
 
 export const registerUserAction=(user)=> async(dispatch,getState)=>
 {
@@ -58,4 +63,34 @@ export const logoutUserAction=(user)=> async(dispatch,getState)=>
     }
     
 
+}
+
+
+export const getAllUsersAction=()=>async(dispatch,getState)=>{
+    
+    try{
+        const user=getState().loginUser.user;
+        if(user.Admin)
+        {
+            dispatch({type:GET_ALL_USERS_REQUEST})
+            const config={
+                headers: {
+                    Authorization:`${user.Admin}`,
+                  }
+            }
+            const response=await axios.get(`http://localhost:5000/api/users`,config)
+            dispatch({type:GET_ALL_USERS_SUCCESS,payload:response.data})
+        }
+        else
+        {
+            Swal.fire('Oops', 'Something went wrong ,you haven\' the access to this page', 'error')
+            dispatch({type:GET_ALL_USERS_FAIL})
+        }
+    }
+    catch(error)
+    {
+        dispatch({type:GET_ALL_USERS_FAIL,payload:error})
+        Swal.fire('Oops', 'Something went wrong , please try later', 'error')
+
+    }
 }

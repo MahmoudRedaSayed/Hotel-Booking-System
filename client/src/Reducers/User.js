@@ -4,10 +4,12 @@ import { REGISTER_USER_FAIL,
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
+    GET_ALL_USERS_REQUEST,
+    GET_ALL_USERS_SUCCESS,
+    GET_ALL_USERS_FAIL,
     LOGOUT_USER_FAIL,
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS} from "../Constants/User";
-
 
 export const registerUserReducer=(state={} ,action)=>
 {
@@ -59,6 +61,24 @@ export const logoutUserReducer=(state={} ,action)=>
         case LOGOUT_USER_FAIL:
             return {
                 loading:false,error:action.payload
+            }
+    default: return state
+    }
+}
+
+export const getAllUsersReducer=(state={} ,action)=>
+{
+    switch(action.type)
+    {
+        case GET_ALL_USERS_REQUEST:
+            return{
+                loading:true
+            }
+        case GET_ALL_USERS_SUCCESS:
+            return{loading:false,success:true,users:action.payload}
+        case GET_ALL_USERS_FAIL:
+            return {
+                loading:false,error:action.payload,success:false
             }
     default: return state
     }

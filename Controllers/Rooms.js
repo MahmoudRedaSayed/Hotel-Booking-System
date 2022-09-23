@@ -55,4 +55,23 @@ const getFilteredRooms=async(req,res)=>{
         res.status(400).json("error in server");
     }
 }
-module.exports={getAllRooms,getRoomById,getFilteredRooms}
+const addRoom=async(req,res)=>{
+    try{
+            const {room}=req.body;
+            console.log("recived room",room)
+            const createdRoom=await Room.create(room);
+            if(createdRoom)
+            {
+                res.status(200).json("room is added")
+            }
+            else
+            {
+                res.status(400).json("error in data");
+            }
+    }
+    catch(error)
+    {
+        res.status(400).json("error in server"+error);
+    }
+}
+module.exports={getAllRooms,getRoomById,getFilteredRooms,addRoom}

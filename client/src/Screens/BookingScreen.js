@@ -9,6 +9,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRoomByIdAction } from '../Actions/Room';
 import { bookingRoomAction } from '../Actions/Booking';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
+AOS.refresh()
 
 function Bookingscreen() {
     const params = useParams();
@@ -49,7 +53,7 @@ function Bookingscreen() {
 
             {loading||loadingBook ? (<Loader />) : error ? (<Error data="something is wrong" />) : success ? (
 
-                <div className="row p-3 mb-5 bs" >
+                <div className="row p-3 mb-5 bs" data-aos='flip-right' >
                     <div className="col-md-6 my-auto">
 
                         <div>

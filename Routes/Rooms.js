@@ -1,6 +1,7 @@
 const express=require("express")
 const router=express.Router();
-const {getAllRooms,getRoomById,getFilteredRooms}=require("../Controllers/Rooms");
-router.route("/").get(getAllRooms).post(getFilteredRooms)
+const {getAllRooms,getRoomById,getFilteredRooms,addRoom}=require("../Controllers/Rooms");
+const {admin}=require("../Middleware/isAdmin");
+router.route("/").get(getAllRooms).post(admin,addRoom).post(getFilteredRooms)
 router.get("/:id",getRoomById)
 module.exports=router;

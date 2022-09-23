@@ -2,6 +2,9 @@ import {
     GET_ALL_ROOMS_REQUEST,
     GET_ALL_ROOMS_SUCCESS,
     GET_ALL_ROOMS_FAIL,
+    ADD_ROOM_REQUEST,
+    ADD_ROOM_SUCCESS,
+    ADD_ROOM_FAIL,
     FILTER_ROOMS_REQUEST,
     FILTER_ROOMS_SUCCESS,
     FILTER_ROOMS_FAIL,
@@ -48,6 +51,29 @@ export const  getRoomByIdReducer=(state={},action)=>{
             room:action.payload
         }
         case GET_ROOM_BY_ID_FAIL:
+            return{
+                loading:false,
+                error:action.payload,
+                success:false
+            }
+        default: return state;
+    }
+
+}
+
+export const  addRoomReducer=(state={},action)=>{
+    switch(action.type)
+    {
+        case ADD_ROOM_REQUEST:
+            return{
+                loading:true
+            }
+        case ADD_ROOM_SUCCESS:
+        return{
+            loading:false,
+            success:true,
+        }
+        case ADD_ROOM_FAIL:
             return{
                 loading:false,
                 error:action.payload,

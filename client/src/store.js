@@ -2,9 +2,9 @@ import {combineReducers} from "redux"
 import {createStore,applyMiddleware} from "redux";
 import thunk from "redux-thunk"
 import {composeWithDevTools} from "redux-devtools-extension";
-import { getAllRoomsReducer, getRoomByIdReducer } from "./Reducers/Room";
-import { loginUserReducer, registerUserReducer } from "./Reducers/User";
-import { bookingRoomReducer, cancelBookingReducer, getUserBookingsReducer } from "./Reducers/Booking";
+import { addRoomReducer, getAllRoomsReducer, getRoomByIdReducer } from "./Reducers/Room";
+import { getAllUsersReducer, loginUserReducer, registerUserReducer } from "./Reducers/User";
+import { bookingRoomReducer, cancelBookingReducer, getAllBookingsReducer, getUserBookingsReducer } from "./Reducers/Booking";
 const finalReducer=combineReducers({
     getAllRooms:getAllRoomsReducer,
     getRoomById:getRoomByIdReducer,
@@ -12,7 +12,10 @@ const finalReducer=combineReducers({
     registerUser:registerUserReducer,
     bookingRoom:bookingRoomReducer,
     getUserBookings:getUserBookingsReducer,
-    cancelBooking:cancelBookingReducer
+    cancelBooking:cancelBookingReducer,
+    getAllBookings:getAllBookingsReducer,
+    getAllUsers:getAllUsersReducer,
+    addRoom:addRoomReducer,
 })
 const user=localStorage.getItem("userInfo")?JSON.parse(localStorage.getItem("userInfo")):null
 const initialState={loginUser:{user}}

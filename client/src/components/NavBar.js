@@ -5,9 +5,9 @@ export default function NavBar(){
   const {user}=useSelector(state=>state.loginUser);
   const dispatch=useDispatch();
     return(
-<nav className="navbar navbar-dark bg-dark navbar-expand-lg  shadow-lg p-3 mb-5  " style={{backgroundColor:"black"}}>
+<nav className="navbar navbar-dark bg-dark navbar-expand-lg  shadow-lg p-3  " style={{backgroundColor:"black"}}>
   <div className="container-fluid">
-    <a className="navbar-brand" href="/">Navbar</a>
+    <a className="navbar-brand" href="/home">AlgoPhobia</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -21,6 +21,7 @@ export default function NavBar(){
   </button>
   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li> <a className="dropdown-item" href="/profile">Profile</a></li>
+    {user.Admin&&<li> <a className="dropdown-item" href="/profile">Admin panel</a></li>}
     <li><a className="dropdown-item"  onClick={()=>{dispatch(logoutUserAction())}}>Logout</a></li>
   </ul>
 </div>)

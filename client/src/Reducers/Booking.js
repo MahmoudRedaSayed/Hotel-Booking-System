@@ -7,7 +7,10 @@ import {
     CANCEL_BOOKING_FAIL,
     GET_USER_BOOKINGS_REQUEST,
     GET_USER_BOOKINGS_SUCCESS,
-    GET_USER_BOOKINGS_FAIL
+    GET_USER_BOOKINGS_FAIL,
+    GET_ALL_BOOKINGS_REQUEST,
+    GET_ALL_BOOKINGS_SUCCESS,
+    GET_ALL_BOOKINGS_FAIL
 } from "../Constants/Booking"
 export const bookingRoomReducer=(state={} ,action)=>
 {
@@ -38,6 +41,24 @@ export const getUserBookingsReducer=(state={} ,action)=>
         case GET_USER_BOOKINGS_SUCCESS:
             return{loading:false,success:true,bookings:action.payload}
         case GET_USER_BOOKINGS_FAIL:
+            return {
+                loading:false,error:action.payload,success:false
+            }
+    default: return state
+    }
+}
+
+export const getAllBookingsReducer=(state={} ,action)=>
+{
+    switch(action.type)
+    {
+        case GET_ALL_BOOKINGS_REQUEST:
+            return{
+                loading:true
+            }
+        case GET_ALL_BOOKINGS_SUCCESS:
+            return{loading:false,success:true,bookings:action.payload}
+        case GET_ALL_BOOKINGS_FAIL:
             return {
                 loading:false,error:action.payload,success:false
             }

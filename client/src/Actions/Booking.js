@@ -7,7 +7,10 @@ import {
     CANCEL_BOOKING_FAIL,
     GET_USER_BOOKINGS_REQUEST,
     GET_USER_BOOKINGS_SUCCESS,
-    GET_USER_BOOKINGS_FAIL
+    GET_USER_BOOKINGS_FAIL,
+    GET_ALL_BOOKINGS_REQUEST,
+    GET_ALL_BOOKINGS_SUCCESS,
+    GET_ALL_BOOKINGS_FAIL
 } from "../Constants/Booking"
 import axios from "axios";
 import Swal from 'sweetalert2'
@@ -40,7 +43,7 @@ export const getUserBookingsAction=()=>async(dispatch,getState)=>{
     }
     catch(error)
     {
-        dispatch({type:GET_USER_BOOKINGS_SUCCESS,payload:error})
+        dispatch({type:GET_USER_BOOKINGS_FAIL,payload:error})
         Swal.fire('Oops', 'Something went wrong , please try later', 'error')
     }
 }
@@ -60,4 +63,35 @@ export const cancelBookingAction=(bookingId,roomId)=>async(dispatch,getState)=>{
               Swal.fire('Oops' , 'Something went wrong' , 'error')
             }
 
+}
+
+
+export const getAllBookingsAction=()=>async(dispatch,getState)=>{
+    const user=getState().loginUser.user;
+
+    try{
+        if(user.Admin)
+        {
+            dispatch({type:GET_ALL_BOOKINGS_REQUEST})
+            console.log("hererr")
+            const config={
+                headers: {
+                    Authorization:`${user.Admin}`,
+                  }
+            }
+            const response=await axios.get(`http://localhost:5000/api/bookings`,config)
+            dispatch({type:GET_ALL_BOOKINGS_SUCCESS,payload:response.data})
+        }
+        else
+        {
+            Swal.fire('Oops', 'Something went wrong ,you haven\' the access to this page', 'error')
+            dispatch({type:GET_ALL_BOOKINGS_FAIL})
+        }
+    }
+    catch(error)
+    {
+        dispatch({type:GET_ALL_BOOKINGS_FAIL,payload:error})
+        Swal.fire('Oops', 'Something went wrong , please try later', 'error')
+
+    }
 }
