@@ -16,7 +16,7 @@ it is hotel booking system you can browse the rooms and choose any room in any w
 - Redux
 - React 
 - mongodb
--stripe (payment tool)
+- stripe (payment tool)
 
 ## video demo
 ![](https://github.com/MahmoudRedaSayed/Hotel-Booking-System/blob/main/videos/Demo.gif)
