@@ -21,7 +21,7 @@ export default function NavBar(){
   </button>
   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li> <a className="dropdown-item" href="/profile">Profile</a></li>
-    {user.Admin&&<li> <a className="dropdown-item" href="/profile">Admin panel</a></li>}
+    {user.Admin&&<li> <a className="dropdown-item" href="/admin">Admin panel</a></li>}
     <li><a className="dropdown-item"  onClick={()=>{dispatch(logoutUserAction())}}>Logout</a></li>
   </ul>
 </div>)

@@ -45,7 +45,7 @@ export const FilterRoomsAction=(searchKey,type)=>async(dispatch,getState)=>{
     try{
         dispatch({type:GET_ALL_ROOMS_REQUEST})
 
-        const response=await axios.post("http://localhost:5000/api/rooms",{searchKey,type});
+        const response=await axios.post("http://localhost:5000/api/rooms/filter",{searchKey,type});
         dispatch({type:GET_ALL_ROOMS_SUCCESS,payload:response.data})
     }
     catch(error)
